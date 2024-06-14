@@ -1,7 +1,6 @@
 import telebot
 from telebot import types
 
-
 bot = telebot.TeleBot('6841649999:AAGshO59WA9ueHrLRqJeseVt8oHELYwO_yk')
 my_chat_id = 631104511
 
@@ -9,11 +8,13 @@ my_chat_id = 631104511
 @bot.message_handler(commands=['start'])
 def start_message(message):
     bot.send_dice(message.chat.id)
+
     keyboard = types.ReplyKeyboardMarkup(row_width=2, resize_keyboard=True)
     button1 = types.KeyboardButton(text='Service')
     button2 = types.KeyboardButton(text='About us')
     button3 = types.KeyboardButton(text='Leave an application')
     keyboard.add(button1, button2, button3)
+
     bot.send_message(message.chat.id, 'Good afternoon! We are a company for accountants', reply_markup=keyboard)
 
 
@@ -38,6 +39,7 @@ def send_service(message):
     ]
     bot.send_message(message.chat.id, '\n'.join(services))
 
+
 @bot.message_handler(content_types=['text'])
 def repeat_all_messages(message):
     if message.text.lower() == 'about us':
@@ -49,6 +51,7 @@ def repeat_all_messages(message):
         send_service(message)
     else:
         bot.send_message(message.chat.id, 'I did not understand your command.')
+
 
 if __name__ == '__main__':
     bot.infinity_polling()
